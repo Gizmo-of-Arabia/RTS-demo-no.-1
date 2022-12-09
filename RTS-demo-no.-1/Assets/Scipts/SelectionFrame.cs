@@ -38,8 +38,7 @@ public class SelectionFrame : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		// change size based on distance
-		rectTransform.localScale = Vector3.one * frameSizeModifier / Vector3.Distance(Camera.main.transform.position, selectedThing.transform.position);
+		ScaleBasedOnDistanceFromCamera();
 
 		// move this UI element on top of the selected object, from the POV of the camera
 		transform.position = Camera.main.WorldToScreenPoint(selectedThing.transform.position);
@@ -53,6 +52,22 @@ public class SelectionFrame : MonoBehaviour
 	// ***
 	// * 
 	// ***
+
+	// local vars:
+	Vector3 minimumScale;
+	Vector3 newScale;
+	private void ScaleBasedOnDistanceFromCamera()
+    {
+        minimumScale = new Vector3(0.25f, 0.25f, 0.25f);
+        newScale = Vector3.one * frameSizeModifier / Vector3.Distance(Camera.main.transform.position, selectedThing.transform.position);
+
+		if (newScale.x < minimumScale.x)
+		{
+            rectTransform.localScale = minimumScale;
+            return;
+		}
+        rectTransform.localScale = newScale;
+    }
 
 	private void PlaceFrameCorners()
 	{
