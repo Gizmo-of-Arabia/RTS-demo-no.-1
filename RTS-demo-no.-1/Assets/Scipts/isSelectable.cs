@@ -13,7 +13,9 @@ public class isSelectable : MonoBehaviour
 	[SerializeField]
 	private GameEvent OnNewSelectableCreated;
 
-	private void Awake()
+    public Vector2 frameDimensions;
+
+    private void Awake()
 	{
 		
 	}
