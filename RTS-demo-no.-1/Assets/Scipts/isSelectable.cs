@@ -7,13 +7,11 @@ using UnityEngine.UI;
 
 public class isSelectable : MonoBehaviour
 {
-	[SerializeField]
-	private RuntimeSet_isSelectable AllSelectables;
+    [SerializeField] private RuntimeSet_isSelectable AllSelectables;
 
-	[SerializeField]
-	private GameEvent OnNewSelectableCreated;
+    [SerializeField] private GameEvent OnNewSelectableCreated;
 
-    public Vector2 frameDimensions;
+    [field: SerializeField] public Vector2 frameDimensions { get; private set; }
 
     private void Awake()
 	{

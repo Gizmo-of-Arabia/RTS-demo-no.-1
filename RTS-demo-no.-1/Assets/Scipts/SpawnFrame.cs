@@ -6,14 +6,11 @@ using System.Threading;
 
 public class SpawnFrame : MonoBehaviour
 {
-    [SerializeField]
-    private RuntimeSet_isSelectable AllSelectables;
 
-    [SerializeField]
-    private GameObject FramePrefab;
 
-    private GameObject freshFrame;
-    private SelectionFrame freshFrameComp;
+    [SerializeField] private SelectionFrame FramePrefab;
+
+    private SelectionFrame freshFrame;
 
 
     // Instantiates Selection Frame, assigns tracked selectabled object to frame
@@ -21,8 +18,6 @@ public class SpawnFrame : MonoBehaviour
     {
 
         freshFrame = Instantiate(FramePrefab, transform);
-        freshFrameComp = freshFrame.GetComponent<SelectionFrame>();
-        freshFrameComp.selectedThing = AllSelectables.Last();
 
     }
 

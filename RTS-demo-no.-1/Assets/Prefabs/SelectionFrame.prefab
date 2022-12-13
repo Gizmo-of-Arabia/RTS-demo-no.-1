@@ -145,7 +145,8 @@ MonoBehaviour:
   - {fileID: 9199824398365652364}
   - {fileID: 3690442405611326869}
   - {fileID: 8669320710463728133}
-  selectedThing: {fileID: 0}
+  AllSelectables: {fileID: 11400000, guid: 493eef4449da1c74d8fa6c490c3d21dd, type: 2}
+  <selectedThing>k__BackingField: {fileID: 0}
 --- !u!1 &8669320710463728133
 GameObject:
   m_ObjectHideFlags: 0

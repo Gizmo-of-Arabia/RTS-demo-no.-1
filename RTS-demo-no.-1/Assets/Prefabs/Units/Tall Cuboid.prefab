@@ -113,4 +113,4 @@ MonoBehaviour:
   AllSelectables: {fileID: 11400000, guid: 493eef4449da1c74d8fa6c490c3d21dd, type: 2}
   OnNewSelectableCreated: {fileID: 11400000, guid: 5a0e3b8a3ef8cee4e8752e3918fb3de8,
     type: 2}
-  frameDimensions: {x: 30, y: 60}
+  <frameDimensions>k__BackingField: {x: 44, y: 52}

@@ -1,3 +1,4 @@
+using RyanHipplesArchitecture.SO_RuntimeSet;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,22 +6,24 @@ using UnityEngine;
 
 public class SelectionFrame : MonoBehaviour
 {
-	[SerializeField]
-	private float frameSizeModifier,
-				  frameCornerSizeModifier;
+    [SerializeField]
+    private float frameSizeModifier,
+                 frameCornerSizeModifier;
 
-	[SerializeField]
-	private List<GameObject> frameCorners;
+    [SerializeField] private List<GameObject> frameCorners;
 
-	// public variables are assigned by frame generator
-	public isSelectable selectedThing;
+    [SerializeField] private RuntimeSet_isSelectable AllSelectables;
+
+    [field: SerializeField] public isSelectable selectedThing { get; private set; }
 
 	private RectTransform rectTransform;
 
 	private void Awake()
 	{
 		rectTransform = GetComponent<RectTransform>();
-	}
+
+        selectedThing = AllSelectables.Last();
+    }
 
 	private void OnEnable()
 	{
@@ -29,7 +32,9 @@ public class SelectionFrame : MonoBehaviour
 
 	private void Start()
 	{
-		PlaceFrameCorners();
+
+
+        PlaceFrameCorners();
 	}
 
 	private void Update()
