@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class isSelectable : MonoBehaviour
 {
-    [SerializeField] private RuntimeSet_isSelectable AllSelectables;
+    [SerializeField] private RuntimeSet_isSelectable allSelectables;
 
-    [SerializeField] private GameEvent OnNewSelectableCreated;
+    [SerializeField] private GameEvent_int onNewSelectableCreated;
 
-    [field: SerializeField] public Vector2 frameDimensions { get; private set; }
+    [field: SerializeField] public Vector2 FrameDimensions { get; private set; }
 
     private void Awake()
 	{
@@ -26,16 +26,14 @@ public class isSelectable : MonoBehaviour
 	private void Start()
 	{
 
-		AllSelectables.Add(this);
-
-		// pass index of newly added object in the event
-		OnNewSelectableCreated.Raise();
+		allSelectables.Add(this);
+		onNewSelectableCreated.Raise(allSelectables.Items.Count - 1); // parameter is index of this in Runtime Set
 
 	}
 
 	private void OnDestroy()
 	{
-		AllSelectables.Remove(this);
+		allSelectables.Remove(this);
 
     }
 

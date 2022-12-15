@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9056712771472976950}
   - component: {fileID: 166298989904330099}
-  - component: {fileID: -4601244066811696989}
+  - component: {fileID: 2345763255549548202}
   m_Layer: 5
   m_Name: SelectionFrame
   m_TagString: Untagged
@@ -126,7 +126,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8498825497751657036}
   m_CullTransparentMesh: 1
---- !u!114 &-4601244066811696989
+--- !u!114 &2345763255549548202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,15 +138,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5037be8d1213ee42bc53d0e59f0ee4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameSizeModifier: 9
+  frameSizeModifier: 8
   frameCornerSizeModifier: 0.25
   frameCorners:
   - {fileID: 8729389955636658450}
   - {fileID: 9199824398365652364}
   - {fileID: 3690442405611326869}
   - {fileID: 8669320710463728133}
-  AllSelectables: {fileID: 11400000, guid: 493eef4449da1c74d8fa6c490c3d21dd, type: 2}
-  <selectedThing>k__BackingField: {fileID: 0}
+  SelectedThing: {fileID: 0}
 --- !u!1 &8669320710463728133
 GameObject:
   m_ObjectHideFlags: 0

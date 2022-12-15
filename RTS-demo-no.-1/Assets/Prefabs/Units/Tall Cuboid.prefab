@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89fa74d469e806b4e83e67b074e6427a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllSelectables: {fileID: 11400000, guid: 493eef4449da1c74d8fa6c490c3d21dd, type: 2}
-  OnNewSelectableCreated: {fileID: 11400000, guid: 5a0e3b8a3ef8cee4e8752e3918fb3de8,
+  allSelectables: {fileID: 11400000, guid: 493eef4449da1c74d8fa6c490c3d21dd, type: 2}
+  onNewSelectableCreated: {fileID: 11400000, guid: a107b14a83e3d854f90d7c5eb4f91708,
     type: 2}
-  <frameDimensions>k__BackingField: {x: 44, y: 52}
+  <FrameDimensions>k__BackingField: {x: 40, y: 60}

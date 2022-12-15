@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4296528219380927664}
   - component: {fileID: 4296528219380927665}
-  - component: {fileID: 4296528219380927666}
+  - component: {fileID: 248556565894340105}
   m_Layer: 5
   m_Name: SelectionFrames_Generator
   m_TagString: Untagged
@@ -50,10 +50,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdee7ca5fe0d7ca4ab8c47abdbed5d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllSelectables: {fileID: 11400000, guid: 493eef4449da1c74d8fa6c490c3d21dd, type: 2}
-  FramePrefab: {fileID: -4601244066811696989, guid: cbb1f88b53bba394e83d40208d05703a,
+  framePrefab: {fileID: 2345763255549548202, guid: cbb1f88b53bba394e83d40208d05703a,
     type: 3}
---- !u!114 &4296528219380927666
+  allSelectables: {fileID: 11400000, guid: 493eef4449da1c74d8fa6c490c3d21dd, type: 2}
+--- !u!114 &248556565894340105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,17 +62,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4296528219380927671}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01345ee274c32a6428f2673fa962036f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cda360024358564db53f9dac98ce84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _event: {fileID: 11400000, guid: 5a0e3b8a3ef8cee4e8752e3918fb3de8, type: 2}
-  _response:
+  typedEvent: {fileID: 11400000, guid: a107b14a83e3d854f90d7c5eb4f91708, type: 2}
+  typedResponse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4296528219380927665}
         m_TargetAssemblyTypeName: SpawnFrame, Assembly-CSharp
         m_MethodName: DoSpawnFrame
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

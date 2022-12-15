@@ -12,17 +12,23 @@ public class SelectionFrame : MonoBehaviour
 
     [SerializeField] private List<GameObject> frameCorners;
 
-    [SerializeField] private RuntimeSet_isSelectable AllSelectables;
-
-    [field: SerializeField] public isSelectable selectedThing { get; private set; }
-
 	private RectTransform rectTransform;
+
+	private isSelectable selectedThing;
+	public isSelectable SelectedThing
+	{
+		get { return selectedThing; }
+		set 
+		{
+			if (selectedThing) return;
+			selectedThing = value;
+		}
+	}
 
 	private void Awake()
 	{
 		rectTransform = GetComponent<RectTransform>();
 
-        selectedThing = AllSelectables.Last();
     }
 
 	private void OnEnable()
@@ -32,8 +38,6 @@ public class SelectionFrame : MonoBehaviour
 
 	private void Start()
 	{
-
-
         PlaceFrameCorners();
 	}
 
@@ -46,7 +50,7 @@ public class SelectionFrame : MonoBehaviour
 		ScaleBasedOnDistanceFromCamera();
 
 		// move this UI element on top of the selected object, from the POV of the camera
-		transform.position = Camera.main.WorldToScreenPoint(selectedThing.transform.position);
+		transform.position = Camera.main.WorldToScreenPoint(SelectedThing.transform.position);
 	}
 
 	private void OnDestroy()
@@ -59,22 +63,22 @@ public class SelectionFrame : MonoBehaviour
 	// ***
 
 	// local vars:
-	Vector3 minimumScale;
-	Vector3 newScale;
+	Vector3 _minimumScale, _newScale;
+	
 	private void ScaleBasedOnDistanceFromCamera()
     {
-        minimumScale = new Vector3(0.25f, 0.25f, 0.25f);
-        newScale = Vector3.one * frameSizeModifier / Vector3.Distance(Camera.main.transform.position, selectedThing.transform.position);
+        _minimumScale = new Vector3(0.25f, 0.25f, 0.25f); // MAGIC NUMBER!
+        _newScale = Vector3.one * frameSizeModifier / Vector3.Distance(Camera.main.transform.position, SelectedThing.transform.position);
 
-		if (newScale.x < minimumScale.x)
+		if (_newScale.x < _minimumScale.x)
 		{
-            rectTransform.localScale = minimumScale;
+            rectTransform.localScale = _minimumScale;
             return;
 		}
-        rectTransform.localScale = newScale;
+        rectTransform.localScale = _newScale;
     }
 
-	private void PlaceFrameCorners()
+    private void PlaceFrameCorners()
 	{
 		//temp code:
 		foreach (GameObject item in frameCorners)
@@ -82,12 +86,12 @@ public class SelectionFrame : MonoBehaviour
 			item.transform.localScale = Vector3.one * frameCornerSizeModifier;
 		}
 
-		Vector2 fd = selectedThing.frameDimensions;
+		Vector2 _fd = SelectedThing.FrameDimensions;
 
-		frameCorners[0].transform.localPosition = new Vector2(-fd.x, fd.y);
-		frameCorners[1].transform.localPosition = new Vector2(fd.x, fd.y);
-		frameCorners[2].transform.localPosition = new Vector2(-fd.x, -fd.y);
-		frameCorners[3].transform.localPosition = new Vector2(fd.x, -fd.y);
+		frameCorners[0].transform.localPosition = new Vector2(-_fd.x, _fd.y);
+		frameCorners[1].transform.localPosition = new Vector2(_fd.x, _fd.y);
+		frameCorners[2].transform.localPosition = new Vector2(-_fd.x, -_fd.y);
+		frameCorners[3].transform.localPosition = new Vector2(_fd.x, -_fd.y);
 
 
 

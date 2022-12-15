@@ -8,16 +8,20 @@ public class SpawnFrame : MonoBehaviour
 {
 
 
-    [SerializeField] private SelectionFrame FramePrefab;
+    [SerializeField] private SelectionFrame framePrefab;
+    [SerializeField] private RuntimeSet_isSelectable allSelectables;
 
     private SelectionFrame freshFrame;
 
 
-    // Instantiates Selection Frame, assigns tracked selectabled object to frame
-    public void DoSpawnFrame()
+
+    // Instantiates Selection Frame, assigns tracked selectable object to frame
+    public void DoSpawnFrame(int newSelectableIndex)
     {
 
-        freshFrame = Instantiate(FramePrefab, transform);
+        freshFrame = Instantiate(framePrefab, transform);
+        freshFrame.SelectedThing = allSelectables.Items[newSelectableIndex];
+
 
     }
 
