@@ -21,6 +21,7 @@ public class SpawnFrame : MonoBehaviour
 
         freshFrame = Instantiate(framePrefab, transform);
         freshFrame.SelectedThing = allSelectables.Items[newSelectableIndex];
+        freshFrame.SelectionFrameInit();
 
 
     }

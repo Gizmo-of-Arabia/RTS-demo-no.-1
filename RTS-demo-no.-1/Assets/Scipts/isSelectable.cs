@@ -7,15 +7,38 @@ using UnityEngine.UI;
 
 public class isSelectable : MonoBehaviour
 {
+    #region Built-in
+
     [SerializeField] private RuntimeSet_isSelectable allSelectables;
+	[SerializeField] private GameEvent_int onNewSelectableCreated;
+	[SerializeField] private GameEvent_int onIsSelectedSet;
+	
+	[field: SerializeField] public Vector2 FrameDimensions { get; private set; }
+    public int ObjectID 
+	{ 
+		get => objectID;
+		private set => objectID = value;
+	}
+	public bool IsSelected 
+	{ 
+		get => isSelected; 
+		set 
+		{
+            isSelected = value;
+            onIsSelectedSet.Raise(objectID);
+			//Debug.Log("Raising onIsSelectedSet with arg: " + objectID);
+		} 
+	}
 
-    [SerializeField] private GameEvent_int onNewSelectableCreated;
+    public bool isSelected; // should be priv
+    private int objectID;
 
-    [field: SerializeField] public Vector2 FrameDimensions { get; private set; }
-
-    private void Awake()
+	private void Awake()
 	{
-		
+		objectID = GetInstanceID();
+		//Debug.Log(objectID);
+
+		IsSelected = false;
 	}
 
 	private void OnEnable()
@@ -27,7 +50,7 @@ public class isSelectable : MonoBehaviour
 	{
 
 		allSelectables.Add(this);
-		onNewSelectableCreated.Raise(allSelectables.Items.Count - 1); // parameter is index of this in Runtime Set
+		onNewSelectableCreated.Raise(allSelectables.Items.Count - 1); // argument is index of this in Runtime Set
 
 	}
 
@@ -36,5 +59,25 @@ public class isSelectable : MonoBehaviour
 		allSelectables.Remove(this);
 
     }
+
+    #endregion
+
+    #region Custom
+
+	public void TEST_isSelected()
+	{
+
+		IsSelected = IsSelected ? false : true;
+	}
+
+
+
+
+
+
+
+    #endregion
+
+
 
 }
