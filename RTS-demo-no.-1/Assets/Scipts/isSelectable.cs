@@ -7,38 +7,40 @@ using UnityEngine.UI;
 
 public class isSelectable : MonoBehaviour
 {
-    #region Built-in
+    
 
     [SerializeField] private RuntimeSet_isSelectable allSelectables;
 	[SerializeField] private GameEvent_int onNewSelectableCreated;
-	[SerializeField] private GameEvent_int onIsSelectedSet;
+
+    [SerializeField] private GameEvent OnIsSelectedSet_EventBlueprint;
+	[field: SerializeField] public GameEvent OnIsSelectedSet { get; private set; }
 	
-	[field: SerializeField] public Vector2 FrameDimensions { get; private set; }
-    public int ObjectID 
-	{ 
-		get => objectID;
-		private set => objectID = value;
-	}
-	public bool IsSelected 
+	[field: SerializeField] public Vector2 FrameDimensions	{ get; private set; }
+    public bool IsSelected 
 	{ 
 		get => isSelected; 
 		set 
 		{
             isSelected = value;
-            onIsSelectedSet.Raise(objectID);
-			//Debug.Log("Raising onIsSelectedSet with arg: " + objectID);
-		} 
+            OnIsSelectedSet.Raise();
+            //Debug.Log("Raising onIsSelectedSet with arg: " + objectID);
+        } 
 	}
 
     public bool isSelected; // should be priv
-    private int objectID;
+
+	#region Built-in
 
 	private void Awake()
 	{
-		objectID = GetInstanceID();
-		//Debug.Log(objectID);
+        // this method clones the template event from the prefab
+        // this way each Selectable object has its own unique event
+        OnIsSelectedSet = Instantiate(OnIsSelectedSet_EventBlueprint);
 
 		IsSelected = false;
+
+
+
 	}
 
 	private void OnEnable()

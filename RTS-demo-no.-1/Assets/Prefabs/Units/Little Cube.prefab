@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3358934365914182126}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 37.29, y: 30.54, z: 10.805969}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -113,5 +113,8 @@ MonoBehaviour:
   allSelectables: {fileID: 11400000, guid: 493eef4449da1c74d8fa6c490c3d21dd, type: 2}
   onNewSelectableCreated: {fileID: 11400000, guid: a107b14a83e3d854f90d7c5eb4f91708,
     type: 2}
-  onIsSelectedSet: {fileID: 11400000, guid: ad55dcb78b493d34c9563f4cede85a8e, type: 2}
+  OnIsSelectedSet_EventBlueprint: {fileID: 11400000, guid: ad55dcb78b493d34c9563f4cede85a8e,
+    type: 2}
+  <OnIsSelectedSet>k__BackingField: {fileID: 0}
   <FrameDimensions>k__BackingField: {x: 35, y: 50}
+  isSelected: 0

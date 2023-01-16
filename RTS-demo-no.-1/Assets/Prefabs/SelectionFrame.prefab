@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 9056712771472976950}
   - component: {fileID: 166298989904330099}
   - component: {fileID: 2345763255549548202}
-  - component: {fileID: -8388186593223316966}
+  - component: {fileID: 157889138849937386}
   m_Layer: 5
   m_Name: SelectionFrame
   m_TagString: Untagged
@@ -147,7 +147,7 @@ MonoBehaviour:
   - {fileID: 3690442405611326869}
   - {fileID: 8669320710463728133}
   frameCornerImages: []
---- !u!114 &-8388186593223316966
+--- !u!114 &157889138849937386
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,17 +156,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8498825497751657036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cda360024358564db53f9dac98ce84a, type: 3}
+  m_Script: {fileID: 11500000, guid: 01345ee274c32a6428f2673fa962036f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typedEvent: {fileID: 11400000, guid: ad55dcb78b493d34c9563f4cede85a8e, type: 2}
-  typedResponse:
+  _event: {fileID: 0}
+  _response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2345763255549548202}
         m_TargetAssemblyTypeName: SelectionFrame, Assembly-CSharp
         m_MethodName: DoToggleVisibility
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

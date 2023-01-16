@@ -1,3 +1,4 @@
+using RyanHipplesArchitecture.SO_Events;
 using RyanHipplesArchitecture.SO_RuntimeSet;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using UnityEngine.UI;
 
 public class SelectionFrame : MonoBehaviour
 {
-    #region Built-in + Custom Start
 
     [SerializeField]
     private float frameSizeModifier,
@@ -17,9 +17,9 @@ public class SelectionFrame : MonoBehaviour
 	public List<Image> frameCornerImages;
 
 	private RectTransform rectTransform;
+	private GameEventListener onIsSelectedSetEventListener;
 
 	private isSelectable selectedThing;
-	private int selectedThingID;
 	public isSelectable SelectedThing
 	{
 		get => selectedThing;
@@ -30,9 +30,13 @@ public class SelectionFrame : MonoBehaviour
 		}
 	}
 
-	private void Awake()
+    #region Built-in + Custom Start
+
+
+    private void Awake()
 	{
 		rectTransform = GetComponent<RectTransform>();
+		onIsSelectedSetEventListener = GetComponent<GameEventListener>();
 
     }
 
@@ -47,9 +51,14 @@ public class SelectionFrame : MonoBehaviour
 	{
 		CacheCornerImageRefs();
 		PlaceFrameCorners();
-		selectedThingID = SelectedThing.ObjectID;
 
-		DisableAllCornerImages();
+		onIsSelectedSetEventListener.Event = SelectedThing.OnIsSelectedSet;
+		// setting event means GameEventListener needs resetting:
+		onIsSelectedSetEventListener.enabled = false;
+		onIsSelectedSetEventListener.enabled = true;
+
+
+        DisableAllCornerImages();
 		//Debug.Log("Frame Init complete, my subject's ID: " + selectedThingID);
 	}
 
@@ -108,10 +117,8 @@ public class SelectionFrame : MonoBehaviour
 		frameCorners[3].transform.localPosition = new Vector2(_fd.x, -_fd.y);
 	}
 	
-	public void DoToggleVisibility(int objectID)
+	public void DoToggleVisibility()
 	{
-		if (objectID != selectedThingID) 
-			return;
 
 		if (selectedThing.IsSelected)
 			EnableAllCornerImages();
