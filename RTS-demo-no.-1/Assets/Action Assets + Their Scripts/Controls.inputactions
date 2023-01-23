@@ -6,7 +6,7 @@
             "id": "cb864428-2e93-4af3-a4c7-510829912156",
             "actions": [
                 {
-                    "name": "Tap-Select",
+                    "name": "TapSelect",
                     "type": "Value",
                     "id": "b84baae1-33c9-43ab-be22-ff92a65cafb2",
                     "expectedControlType": "",
@@ -23,7 +23,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tap-Select",
+                    "action": "TapSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
