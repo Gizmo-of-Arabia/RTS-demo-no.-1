@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae7cde8e8bacbc64facbb6913a22af75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDeselectEverything: {fileID: 11400000, guid: 02709cb4d8c847e41a9cefbda3d5c1cd,
+    type: 2}

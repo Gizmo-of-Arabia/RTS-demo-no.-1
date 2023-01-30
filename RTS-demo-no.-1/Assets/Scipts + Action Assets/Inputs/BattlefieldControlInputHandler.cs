@@ -1,3 +1,4 @@
+using RyanHipplesArchitecture.SO_Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ using UnityEngine.Rendering.Universal.Internal;
 public class BattlefieldControlInputHandler : MonoBehaviour
 {
     private Controls controls;
+
+    [SerializeField] private GameEvent onDeselectEverything;
 
     #region Default Methods
 
@@ -42,9 +45,17 @@ public class BattlefieldControlInputHandler : MonoBehaviour
 
     private void OnTapSelect(InputAction.CallbackContext context)
     {
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition))) {
-            Debug.Log("Hit a thing");
-        }
+        onDeselectEverything.Raise(); // in RTS games, TapSelecting nothing deselects stuff.
+        if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)) return;
+
+        Debug.Log($"Hit a thing: {hit.collider.gameObject.name}");
+        hit.collider.gameObject.GetComponent<isSelectable>().IsSelected = true;
+
+
+        //TODO: here select the thing.
+
+
+
     }
 
 

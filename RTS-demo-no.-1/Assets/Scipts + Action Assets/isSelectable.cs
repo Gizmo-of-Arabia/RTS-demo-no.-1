@@ -66,7 +66,20 @@ public class isSelectable : MonoBehaviour
 
     #region Custom
 
-	public void TEST_isSelected()
+    public void DoDeselect() => IsSelected = false;
+    
+
+
+
+
+
+
+
+    #endregion
+
+    #region Test
+
+    public void TEST_isSelected()
 	{
 
 		IsSelected = IsSelected ? false : true;

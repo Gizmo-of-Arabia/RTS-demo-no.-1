@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 3358934365914182120}
   - component: {fileID: 3358934365914182121}
   - component: {fileID: 3358934365914182133}
+  - component: {fileID: -5931518949667716263}
   m_Layer: 0
-  m_Name: Little Cube
+  m_Name: Little Cube (base isSelectable obj)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,3 +119,31 @@ MonoBehaviour:
   <OnIsSelectedSet>k__BackingField: {fileID: 0}
   <FrameDimensions>k__BackingField: {x: 35, y: 50}
   isSelected: 0
+--- !u!114 &-5931518949667716263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3358934365914182126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01345ee274c32a6428f2673fa962036f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 02709cb4d8c847e41a9cefbda3d5c1cd, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3358934365914182133}
+        m_TargetAssemblyTypeName: isSelectable, Assembly-CSharp
+        m_MethodName: DoDeselect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
