@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onDeselectEverything: {fileID: 11400000, guid: 02709cb4d8c847e41a9cefbda3d5c1cd,
     type: 2}
+  maxMouseTravelPixelsForTapSelect: 8

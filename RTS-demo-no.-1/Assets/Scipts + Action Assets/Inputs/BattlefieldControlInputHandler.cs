@@ -9,7 +9,10 @@ public class BattlefieldControlInputHandler : MonoBehaviour
 {
     private Controls controls;
 
+    // in RTS games, TapSelecting nothing deselects stuff.
     [SerializeField] private GameEvent onDeselectEverything;
+
+    [SerializeField] private float maxMouseTravelPixelsForTapSelect;
 
     #region Default Methods
 
@@ -21,7 +24,16 @@ public class BattlefieldControlInputHandler : MonoBehaviour
     private void OnEnable()
     {
         controls.BattlefieldControl.Enable();
+        controls.BattlefieldControl.TapSelect.started += OnTapSelectStarted;
         controls.BattlefieldControl.TapSelect.performed += OnTapSelect;
+
+
+        controls.BattlefieldControl.BoxSelect.performed += OnBoxSelect;
+        controls.BattlefieldControl.BoxSelect.canceled  += OnBoxSelectCanceled;
+
+
+
+
     }
 
     private void Start()
@@ -37,27 +49,55 @@ public class BattlefieldControlInputHandler : MonoBehaviour
     private void OnDisable()
     {
         controls.BattlefieldControl.Disable();
+        controls.BattlefieldControl.TapSelect.started -= OnTapSelectStarted;
         controls.BattlefieldControl.TapSelect.performed -= OnTapSelect;
+
+
+        controls.BattlefieldControl.BoxSelect.performed -= OnBoxSelect;
+        controls.BattlefieldControl.BoxSelect.canceled  -= OnBoxSelectCanceled;
+
+
+
+
+
     }
 
     #endregion
     #region Custom Methods
 
+    Vector3 _startingMousePosition; 
+    float _distanceTraveledByMouse;
+    private void OnTapSelectStarted(InputAction.CallbackContext context)
+    {
+        _startingMousePosition = Input.mousePosition;
+        //Debug.Log("TS Started");
+    }
+
     private void OnTapSelect(InputAction.CallbackContext context)
     {
-        onDeselectEverything.Raise(); // in RTS games, TapSelecting nothing deselects stuff.
+        onDeselectEverything.Raise();
         if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)) return;
 
-        Debug.Log($"Hit a thing: {hit.collider.gameObject.name}");
+        _distanceTraveledByMouse = Vector3.Distance(_startingMousePosition, Input.mousePosition);
+        Debug.Log(_distanceTraveledByMouse);
+        if (_distanceTraveledByMouse > maxMouseTravelPixelsForTapSelect) return;
+    
+        //Debug.Log($"Hit a thing: {hit.collider.gameObject.name}");
         hit.collider.gameObject.GetComponent<isSelectable>().IsSelected = true;
+    }
 
-
-        //TODO: here select the thing.
-
-
+    private void OnBoxSelect(InputAction.CallbackContext context)
+    {
+       // Debug.Log($"ONBOXSELECT");
 
     }
 
+    private void OnBoxSelectCanceled(InputAction.CallbackContext context)
+    {
+
+       // Debug.Log($"ONBOXSELECT_cancel");
+
+    }
 
 
     #endregion
