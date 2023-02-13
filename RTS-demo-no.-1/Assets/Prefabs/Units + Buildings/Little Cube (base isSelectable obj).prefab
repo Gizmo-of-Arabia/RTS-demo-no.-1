@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3358934365914182121}
   - component: {fileID: 3358934365914182133}
   - component: {fileID: -5931518949667716263}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Little Cube (base isSelectable obj)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ MonoBehaviour:
   allSelectables: {fileID: 11400000, guid: 493eef4449da1c74d8fa6c490c3d21dd, type: 2}
   onNewSelectableCreated: {fileID: 11400000, guid: a107b14a83e3d854f90d7c5eb4f91708,
     type: 2}
-  OnIsSelectedSet_EventBlueprint: {fileID: 11400000, guid: ad55dcb78b493d34c9563f4cede85a8e,
+  onIsSelectedSet_EventBlueprint: {fileID: 11400000, guid: ad55dcb78b493d34c9563f4cede85a8e,
     type: 2}
   <OnIsSelectedSet>k__BackingField: {fileID: 0}
   <FrameDimensions>k__BackingField: {x: 35, y: 50}

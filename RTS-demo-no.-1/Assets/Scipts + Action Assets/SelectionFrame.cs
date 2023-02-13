@@ -6,6 +6,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// All behaviour of a Selection Frame, UI element that tracks it's partner Selectable entity.
+/// Handles UI related stuff, toggles it's visibility depending on if object is selected.
+/// </summary>
 public class SelectionFrame : MonoBehaviour
 {
 
@@ -20,7 +24,14 @@ public class SelectionFrame : MonoBehaviour
 	private GameEventListener onIsSelectedSetEventListener;
 
 	private isSelectable selectedThing;
-	public isSelectable SelectedThing
+
+    private Vector3 _minimumScale, 
+					_newScale;
+
+    /// <summary>
+    /// Selectable object tracked by the frame. Can only be set once.
+    /// </summary>
+    public isSelectable SelectedThing
 	{
 		get => selectedThing;
 		set 
@@ -45,9 +56,12 @@ public class SelectionFrame : MonoBehaviour
 
 	}
 
-	// this is a custom Start, to avoid race conditions
-	// Whatever instantiates Selection Frames should call this.
-	public void SelectionFrameInit()
+    /// <summary>
+    /// This is a custom Start, to avoid race conditions
+    /// Whatever instantiates Selection Frames will call this.
+    /// </summary>
+
+    public void SelectionFrameInit()
 	{
 		CacheCornerImageRefs();
 		PlaceFrameCorners();
@@ -83,11 +97,6 @@ public class SelectionFrame : MonoBehaviour
 
     #region Custom
 
-
-
-    // local vars:
-    Vector3 _minimumScale, _newScale;
-	
 	private void ScaleBasedOnDistanceFromCamera()
     {
         _minimumScale = new Vector3(0.25f, 0.25f, 0.25f); // MAGIC NUMBER!

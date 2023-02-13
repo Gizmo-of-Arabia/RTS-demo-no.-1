@@ -42,7 +42,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""id"": ""e27ac622-637d-45f5-9cac-e433da4b4ca2"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""SlowTap(duration=1E-05)"",
                     ""initialStateCheck"": true
                 }
             ],

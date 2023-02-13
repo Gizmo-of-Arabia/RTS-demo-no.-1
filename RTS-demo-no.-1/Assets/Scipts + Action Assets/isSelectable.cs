@@ -5,17 +5,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Set of methods for an entity that is selectable by a player.
+/// Could be a unit, a building, etc.
+/// </summary>
 public class isSelectable : MonoBehaviour
 {
-    
-
     [SerializeField] private RuntimeSet_isSelectable allSelectables;
+
 	[SerializeField] private GameEvent_int onNewSelectableCreated;
 
-    [SerializeField] private GameEvent OnIsSelectedSet_EventBlueprint;
-	[field: SerializeField] public GameEvent OnIsSelectedSet { get; private set; }
+    [SerializeField] private GameEvent onIsSelectedSet_EventBlueprint;
+
+    [field: SerializeField, Tooltip("Event raised when this is selected or deselected, unique -- instantiated from blueprint")]
+    public GameEvent OnIsSelectedSet { get; private set; }
 	
 	[field: SerializeField] public Vector2 FrameDimensions	{ get; private set; }
+
+	/// <summary>
+	/// Holds info on whether the object is currently selected by the player.
+	/// Raises an event upon being set, so that UI knows to update.
+	/// </summary>
     public bool IsSelected 
 	{ 
 		get => isSelected; 
@@ -27,7 +37,7 @@ public class isSelectable : MonoBehaviour
         } 
 	}
 
-    public bool isSelected; // should be priv
+    private bool isSelected;
 
 	#region Built-in
 
@@ -35,7 +45,7 @@ public class isSelectable : MonoBehaviour
 	{
         // this method clones the template event from the prefab
         // this way each Selectable object has its own unique event
-        OnIsSelectedSet = Instantiate(OnIsSelectedSet_EventBlueprint);
+        OnIsSelectedSet = Instantiate(onIsSelectedSet_EventBlueprint);
 
 		IsSelected = false;
 
