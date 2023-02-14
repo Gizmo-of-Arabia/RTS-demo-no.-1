@@ -26,9 +26,12 @@ public class TapSelectHandling : MonoBehaviour
 
     private Vector3 _startingMousePosition;
     private float _distanceTraveledByMouse;
+    private Coroutine _tapSelectCoroutine;
+    private bool _isTapSelectOngoing;
+
 
     // this flag ensures you can't "go back" from BoxSelect
-    private bool _mouseHasTraveledTooFar; 
+    private bool _hasCursorGoneTooFar; 
 
 
     #region Default Methods
@@ -36,7 +39,8 @@ public class TapSelectHandling : MonoBehaviour
     private void Awake()
     {
         controls = new Controls();
-        _mouseHasTraveledTooFar = false;
+        _hasCursorGoneTooFar = false;
+        _isTapSelectOngoing = false;
     }
 
     private void OnEnable()
@@ -44,6 +48,7 @@ public class TapSelectHandling : MonoBehaviour
         controls.BattlefieldControl.Enable();
         controls.BattlefieldControl.TapSelect.started += OnTapSelectStarted;
         controls.BattlefieldControl.TapSelect.performed += OnTapSelect;
+
 
 
 
@@ -65,7 +70,6 @@ public class TapSelectHandling : MonoBehaviour
         controls.BattlefieldControl.Disable();
         controls.BattlefieldControl.TapSelect.started -= OnTapSelectStarted;
         controls.BattlefieldControl.TapSelect.performed -= OnTapSelect;
-        controls.BattlefieldControl.TapSelect.canceled -= OnTapSelectCanceled;
 
 
     }
@@ -80,7 +84,11 @@ public class TapSelectHandling : MonoBehaviour
     /// <param name="context">Action context, mandatory.</param>
     private void OnTapSelectStarted(InputAction.CallbackContext context)
     {
+        _hasCursorGoneTooFar = false;
         _startingMousePosition = Input.mousePosition;
+
+        _isTapSelectOngoing = true;
+        _tapSelectCoroutine = StartCoroutine(HasCursorGoneTooFarChecker());
         //Debug.Log("TS Started");
     }
 
@@ -95,9 +103,12 @@ public class TapSelectHandling : MonoBehaviour
     /// <param name="context">Action context, mandatory.</param>
     private void OnTapSelect(InputAction.CallbackContext context)
     {
+        _isTapSelectOngoing = false;
         onDeselectEverything.Raise();
 
-        if (MouseTraveledTooFar())
+
+
+        if (IsCursorTooFar() || _hasCursorGoneTooFar)
         {
             return;
         }
@@ -110,16 +121,31 @@ public class TapSelectHandling : MonoBehaviour
         hit.collider.gameObject.GetComponent<isSelectable>().IsSelected = true;
     }
 
-    private void OnTapSelectCanceled(InputAction.CallbackContext context)
-    {
-        _mouseHasTraveledTooFar = false;
-    }
-
-    private bool MouseTraveledTooFar()
+    private bool IsCursorTooFar()
     {
         _distanceTraveledByMouse = Vector3.Distance(_startingMousePosition, Input.mousePosition);
         return _distanceTraveledByMouse > MaxMouseTravelPixelsForTapSelect;
     }
+
+    /// <summary>
+    /// This one starts up whenever TapSelect starts.
+    /// Its only purpose is to check whether the cursor has moved too far.
+    /// It closes the door after that point, so that the input can't go back
+    /// to using TapSelect (e.g. by dragging the cursor back to the starting position).
+    /// </summary>
+    public IEnumerator HasCursorGoneTooFarChecker()
+    {
+        while (_isTapSelectOngoing)
+        {
+            if (IsCursorTooFar())
+            {
+                _hasCursorGoneTooFar = true;
+                yield break;
+            }
+            yield return null;
+        }
+    }
+
 
     #endregion
 }

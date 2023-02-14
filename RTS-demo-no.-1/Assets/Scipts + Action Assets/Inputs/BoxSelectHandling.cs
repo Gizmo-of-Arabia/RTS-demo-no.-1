@@ -1,4 +1,5 @@
 using RyanHipplesArchitecture.SO_Events;
+using RyanHipplesArchitecture.SO_Variables;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,19 +13,29 @@ public class BoxSelectHandling : MonoBehaviour
     // in RTS games, TapSelecting nothing deselects stuff.
     [SerializeField] private GameEvent onDeselectEverything;
 
-    private float minMouseTravelPixelsForBoxSelect;
+    [SerializeField]
+    private Vector3Reference 
+        SelectBoxCorner, SelectBoxCorner_Opposite;
 
-    private Coroutine boxSelectCoroutine;
+    private float _minMouseTravelPixelsForBoxSelect;
+
+    private Coroutine _boxSelectCoroutine;
+    private Coroutine _hasCursorGoneFarEnoughChecker;
+
+
 
     private Vector3 _startingMousePosition;
     private float _distanceTraveledByMouse;
+    private bool _hasCursorGoneFarEnough;
+    private bool _isBoxSelectOngoing;
 
     #region Default Methods
 
     private void Awake()
     {
         controls = new Controls();
-        minMouseTravelPixelsForBoxSelect = GetComponent<TapSelectHandling>().MaxMouseTravelPixelsForTapSelect;
+        _minMouseTravelPixelsForBoxSelect = GetComponent<TapSelectHandling>().MaxMouseTravelPixelsForTapSelect;
+        _hasCursorGoneFarEnough = false;
     }
 
     private void OnEnable()
@@ -33,7 +44,6 @@ public class BoxSelectHandling : MonoBehaviour
 
         controls.BattlefieldControl.BoxSelect.started += OnBoxSelectStarted;
         controls.BattlefieldControl.TapSelect.performed += OnBoxSelect;
-        controls.BattlefieldControl.BoxSelect.canceled  += OnBoxSelectCanceled;
 
 
 
@@ -42,7 +52,7 @@ public class BoxSelectHandling : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     private void Update()
@@ -56,7 +66,6 @@ public class BoxSelectHandling : MonoBehaviour
 
         controls.BattlefieldControl.BoxSelect.started -= OnBoxSelectStarted;
         controls.BattlefieldControl.TapSelect.performed -= OnBoxSelect;
-        controls.BattlefieldControl.BoxSelect.canceled  -= OnBoxSelectCanceled;
 
 
 
@@ -68,42 +77,73 @@ public class BoxSelectHandling : MonoBehaviour
     #region Custom Methods
 
 
-        private bool MouseTraveledFarEnough()
+    private bool IsCursorFarEnough()
     {
         _distanceTraveledByMouse = Vector3.Distance(_startingMousePosition, Input.mousePosition);
-        return _distanceTraveledByMouse > minMouseTravelPixelsForBoxSelect;
+        return _distanceTraveledByMouse > _minMouseTravelPixelsForBoxSelect;
     }
 
     private void OnBoxSelectStarted(InputAction.CallbackContext context)
     {
-        
+        _isBoxSelectOngoing = true;
+        _hasCursorGoneFarEnough = false;
+
         _startingMousePosition = Input.mousePosition;
-        boxSelectCoroutine = StartCoroutine(BoxSelectCoroutine());
+
+        _boxSelectCoroutine = StartCoroutine(BoxSelectCoroutine());
+        _hasCursorGoneFarEnoughChecker = StartCoroutine(HasCursorGoneFarEnoughChecker());
+
+        //Debug.Log("Box Select Started");
         
 
     }
 
     private void OnBoxSelect(InputAction.CallbackContext context)
     {
+        _isBoxSelectOngoing = false;
 
+        if (!_hasCursorGoneFarEnough)
+        {
+            return;
+        }
+
+
+        //TODO: HERE SPAWN THE BIG SHAPE AND SELECT STUFF
     }
 
-
-    private void OnBoxSelectCanceled(InputAction.CallbackContext context)
-    {
-
-       // Debug.Log($"ONBOXSELECT_cancel");
-
-    }
-
+    /// <summary>
+    /// Sets Selection Box boundaries. Starting point is set once, 
+    /// opposite corner can change every frame.
+    /// </summary>
     public IEnumerator BoxSelectCoroutine()
     {
-        while (false /* BOXSELECT RUNNING */)
+        SelectBoxCorner.Variable.SetValue(_startingMousePosition);
+        while (_isBoxSelectOngoing)
         {
-            Debug.Log($"ONBOXSELECT_Coroutine");
+            SelectBoxCorner_Opposite.Variable.SetValue(Input.mousePosition);
+            //Debug.Log($"Corner1: {SelectBoxCorner.Value}\n Corner2: {SelectBoxCorner_Opposite.Value}");
             yield return null;
         }
-        yield break;
+    }
+
+
+    /// <summary>
+    /// This one starts up whenever BoxSelect starts.
+    /// Its only purpose is to check whether the cursor has moved far enough.
+    /// It closes the door after that point, so that the input can't go back
+    /// to using TapSelect (e.g. by dragging the cursor back to the starting position).
+    /// </summary>
+    public IEnumerator HasCursorGoneFarEnoughChecker()
+    {
+        while (_isBoxSelectOngoing)
+        {
+            if (IsCursorFarEnough())
+            {
+                _hasCursorGoneFarEnough = true;
+                yield break;
+            }
+            yield return null;
+        }
     }
 
 

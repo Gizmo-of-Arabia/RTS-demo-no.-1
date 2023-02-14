@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6482212720625331486}
   - component: {fileID: 2846624129759805119}
+  - component: {fileID: 9033721131670018259}
   m_Layer: 0
   m_Name: BattlefieldController
   m_TagString: Untagged
@@ -55,3 +56,25 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: fca92d53a0f21bc47b2e9bdad8aa773d, type: 2}
+--- !u!114 &9033721131670018259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191674804221435282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f481568479d52e143a63d47cbec54860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDeselectEverything: {fileID: 11400000, guid: 02709cb4d8c847e41a9cefbda3d5c1cd,
+    type: 2}
+  SelectBoxCorner:
+    UseConstant: 0
+    ConstantValue: {x: 0, y: 0, z: 0}
+    Variable: {fileID: 11400000, guid: e4a77a5add952c747b28c99d16c9752a, type: 2}
+  SelectBoxCorner_Opposite:
+    UseConstant: 0
+    ConstantValue: {x: 0, y: 0, z: 0}
+    Variable: {fileID: 11400000, guid: f007ee77c160ecf4aa8888d345a8e188, type: 2}

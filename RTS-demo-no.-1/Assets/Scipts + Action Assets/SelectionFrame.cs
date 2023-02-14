@@ -20,10 +20,10 @@ public class SelectionFrame : MonoBehaviour
     [SerializeField] private List<GameObject> frameCorners;
 	public List<Image> frameCornerImages;
 
-	private RectTransform rectTransform;
-	private GameEventListener onIsSelectedSetEventListener;
+	private RectTransform _rectTransform;
+	private GameEventListener _onIsSelectedSetEventListener;
 
-	private isSelectable selectedThing;
+	private isSelectable _selectedThing;
 
     private Vector3 _minimumScale, 
 					_newScale;
@@ -33,11 +33,11 @@ public class SelectionFrame : MonoBehaviour
     /// </summary>
     public isSelectable SelectedThing
 	{
-		get => selectedThing;
+		get => _selectedThing;
 		set 
 		{
-			if (selectedThing) return;
-			selectedThing = value;
+			if (_selectedThing) return;
+			_selectedThing = value;
 		}
 	}
 
@@ -46,8 +46,8 @@ public class SelectionFrame : MonoBehaviour
 
     private void Awake()
 	{
-		rectTransform = GetComponent<RectTransform>();
-		onIsSelectedSetEventListener = GetComponent<GameEventListener>();
+		_rectTransform = GetComponent<RectTransform>();
+		_onIsSelectedSetEventListener = GetComponent<GameEventListener>();
 
     }
 
@@ -66,10 +66,10 @@ public class SelectionFrame : MonoBehaviour
 		CacheCornerImageRefs();
 		PlaceFrameCorners();
 
-		onIsSelectedSetEventListener.Event = SelectedThing.OnIsSelectedSet;
+		_onIsSelectedSetEventListener.Event = SelectedThing.OnIsSelectedSet;
 		// setting event means GameEventListener needs resetting:
-		onIsSelectedSetEventListener.enabled = false;
-		onIsSelectedSetEventListener.enabled = true;
+		_onIsSelectedSetEventListener.enabled = false;
+		_onIsSelectedSetEventListener.enabled = true;
 
 
         DisableAllCornerImages();
@@ -104,10 +104,10 @@ public class SelectionFrame : MonoBehaviour
 
 		if (_newScale.x < _minimumScale.x)
 		{
-            rectTransform.localScale = _minimumScale;
+            _rectTransform.localScale = _minimumScale;
             return;
 		}
-        rectTransform.localScale = _newScale;
+        _rectTransform.localScale = _newScale;
     }
 
     private void PlaceFrameCorners()
@@ -129,7 +129,7 @@ public class SelectionFrame : MonoBehaviour
 	public void DoToggleVisibility()
 	{
 
-		if (selectedThing.IsSelected)
+		if (_selectedThing.IsSelected)
 			EnableAllCornerImages();
 		else
 			DisableAllCornerImages();
