@@ -6,6 +6,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal.Internal;
 
+
+/// <summary>
+/// Handles the "Hold to Box" Selecting feature. 
+/// It's for selecting any number of selectable entities by drawing a box.
+/// Uses the "slow tap" action, which is performed on release.
+/// Sets SelectBoxCorner, SelectBoxCorner_Opposite while the button is held down.
+/// Those vars help the UI Painter make an appropriate box.
+/// TODO: Send start, stop event to UI Painter
+/// TODO: Make a big shape on release that actually selects.
+/// </summary>
 public class BoxSelectHandling : MonoBehaviour
 {
     private Controls controls;

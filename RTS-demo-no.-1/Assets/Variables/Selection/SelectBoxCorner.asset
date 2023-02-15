@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633858ad986d1274c8db4b8bca297070, type: 3}
   m_Name: SelectBoxCorner
   m_EditorClassIdentifier: 
-  DeveloperDescription: 
-  Value: {x: 0, y: 0, z: 0}
+  DeveloperDescription: 'Starting corner of selection box
+
+    (where the "box select"
+    box itself begins).'
+  Value: {x: 6, y: 12, z: 0}
