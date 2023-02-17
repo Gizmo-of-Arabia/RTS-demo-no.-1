@@ -23,6 +23,13 @@ public class BoxSelectHandling : MonoBehaviour
     // in RTS games, TapSelecting nothing deselects stuff.
     [SerializeField] private GameEvent onDeselectEverything;
 
+    /// <summary>
+    /// Raise this with a "true" arg to indicate that the Box Select procedure is starting
+    /// (for example to UI classes). Raise with "false" for its end.
+    /// </summary>
+    [SerializeField] private GameEvent_bool onBoxSelectOngoing;
+
+
     [SerializeField]
     private Vector3Reference 
         SelectBoxCorner, SelectBoxCorner_Opposite;
@@ -53,7 +60,7 @@ public class BoxSelectHandling : MonoBehaviour
         controls.BattlefieldControl.Enable();
 
         controls.BattlefieldControl.BoxSelect.started += OnBoxSelectStarted;
-        controls.BattlefieldControl.TapSelect.performed += OnBoxSelect;
+        controls.BattlefieldControl.TapSelect.performed += OnBoxSelectPerformed;
 
 
 
@@ -75,7 +82,7 @@ public class BoxSelectHandling : MonoBehaviour
         controls.BattlefieldControl.Disable();
 
         controls.BattlefieldControl.BoxSelect.started -= OnBoxSelectStarted;
-        controls.BattlefieldControl.TapSelect.performed -= OnBoxSelect;
+        controls.BattlefieldControl.TapSelect.performed -= OnBoxSelectPerformed;
 
 
 
@@ -93,10 +100,16 @@ public class BoxSelectHandling : MonoBehaviour
         return _distanceTraveledByMouse > _minMouseTravelPixelsForBoxSelect;
     }
 
+    /// <summary>
+    /// Is called when OnBoxSelect starts.
+    /// Sets flags and raises events signifying that the whole "Box Select" procedure is on.
+    /// Sets starting mouse position, starts all the necessary coroutines.
+    /// </summary>
     private void OnBoxSelectStarted(InputAction.CallbackContext context)
     {
         _isBoxSelectOngoing = true;
         _hasCursorGoneFarEnough = false;
+        onBoxSelectOngoing.Raise(true);
 
         _startingMousePosition = Input.mousePosition;
 
@@ -108,8 +121,17 @@ public class BoxSelectHandling : MonoBehaviour
 
     }
 
-    private void OnBoxSelect(InputAction.CallbackContext context)
+
+    /// <summary>
+    /// Is called when OnBoxSelect has been "performed" (so when it's all done).
+    /// Raises onBoxSelectOngoing with the "false" arg (meaning it's over).
+    /// Sets the flag for coroutines to false.
+    /// If the cursor hasn't made it far enough, the actual SELECTION part is aborted.
+    /// TODO: HERE SPAWN THE BIG SHAPE AND SELECT STUFF
+    /// </summary>
+    private void OnBoxSelectPerformed(InputAction.CallbackContext context)
     {
+        onBoxSelectOngoing.Raise(false);
         _isBoxSelectOngoing = false;
 
         if (!_hasCursorGoneFarEnough)
@@ -118,7 +140,7 @@ public class BoxSelectHandling : MonoBehaviour
         }
 
 
-        //TODO: HERE SPAWN THE BIG SHAPE AND SELECT STUFF
+
     }
 
     /// <summary>

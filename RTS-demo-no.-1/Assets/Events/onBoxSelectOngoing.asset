@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62693ed8b099f344da9c29ba6416a064, type: 3}
-  m_Name: TEST INTARRAY EVENT
+  m_Script: {fileID: 11500000, guid: 366d10869e377834e8aa68763330903f, type: 3}
+  m_Name: onBoxSelectOngoing
   m_EditorClassIdentifier: 

@@ -1,3 +1,4 @@
+using RyanHipplesArchitecture.SO_Events;
 using RyanHipplesArchitecture.SO_Variables;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,8 @@ public class PaintSelectionBox : MonoBehaviour
     private Vector3Reference
         SelectBoxCorner, SelectBoxCorner_Opposite;
 
-    private RectTransform _rectTransform;
+    [SerializeField]private GameObject selectionBox;
+    private RectTransform _selectionBoxRectTransform;
 
     // additional corners of the selection box
     private Vector3 _BoxCorner;
@@ -22,12 +24,11 @@ public class PaintSelectionBox : MonoBehaviour
 
     private Vector3 _globalBoxPosition;
 
-
     #region Default Methods
 
     private void Awake()
     {
-        
+
     }
 
     private void OnEnable()
@@ -36,13 +37,19 @@ public class PaintSelectionBox : MonoBehaviour
     }
     private void Start()
     {
-        _rectTransform = GetComponentInChildren<RectTransform>();
+        _selectionBoxRectTransform = selectionBox.GetComponent<RectTransform>();
+        if (!_selectionBoxRectTransform) Debug.LogError("selectionBox lacks RectTransform!");
+
+        selectionBox.SetActive(false);
     }
 
     private void Update()
     {
-        SetSelectionBoxDimensions();
-        
+        if (!selectionBox.gameObject.activeSelf)
+        {
+            return;
+        }
+        SetSelectionBoxDimensions();  
     }
 
     #endregion
@@ -70,8 +77,8 @@ public class PaintSelectionBox : MonoBehaviour
         _newSizeDelta.y = _boxHeight;
 
         //Finally setting the actual properties:
-        _rectTransform.transform.position = _globalBoxPosition;
-        _rectTransform.sizeDelta = _newSizeDelta;
+        _selectionBoxRectTransform.transform.position = _globalBoxPosition;
+        _selectionBoxRectTransform.sizeDelta = _newSizeDelta;
     }
 
     private Vector3 GetMidPoint(Vector3 vec1, Vector3 vec2)
@@ -79,7 +86,10 @@ public class PaintSelectionBox : MonoBehaviour
         return (vec1 + vec2) / 2;
     }
 
-
+    public void DoToggleVisibility(bool eventarg) 
+    {
+        selectionBox.gameObject.SetActive(eventarg);
+    }
 
     #endregion
 

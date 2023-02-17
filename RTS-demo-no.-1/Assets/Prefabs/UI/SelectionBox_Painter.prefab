@@ -8,8 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5733470412237656385}
+  - component: {fileID: 4741317387987922920}
   - component: {fileID: 5733470412237656386}
+  - component: {fileID: 1978215214412495423}
   m_Layer: 5
   m_Name: SelectionBox_Painter
   m_TagString: Untagged
@@ -17,8 +18,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &5733470412237656385
-RectTransform:
+--- !u!4 &4741317387987922920
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -33,11 +34,6 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5733470412237656386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +54,35 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: {x: 0, y: 0, z: 0}
     Variable: {fileID: 11400000, guid: f007ee77c160ecf4aa8888d345a8e188, type: 2}
+  selectionBox: {fileID: 8288425122176285058}
+--- !u!114 &1978215214412495423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5733470412237656390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4b6936d6e7b3140857fac85624b76e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typedEvent: {fileID: 11400000, guid: 8f7eeb31a9327cc4c94302c1c7c3a122, type: 2}
+  typedResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5733470412237656386}
+        m_TargetAssemblyTypeName: PaintSelectionBox, Assembly-CSharp
+        m_MethodName: DoToggleVisibility
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8288425122176285058
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,12 +95,12 @@ GameObject:
   - component: {fileID: 5622711833154102132}
   - component: {fileID: 2918601277542475779}
   m_Layer: 5
-  m_Name: Image
+  m_Name: SelectionBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7466917478186370667
 RectTransform:
   m_ObjectHideFlags: 0
@@ -88,7 +113,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 5733470412237656385}
+  m_Father: {fileID: 4741317387987922920}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -111,7 +136,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8288425122176285058}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
