@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: HugeNumber
   m_EditorClassIdentifier: 
   DeveloperDescription: Big arbitrary number, e.g. helpful for raycast maxdistances.
-  Value: 1e+9
+  Value: 9999

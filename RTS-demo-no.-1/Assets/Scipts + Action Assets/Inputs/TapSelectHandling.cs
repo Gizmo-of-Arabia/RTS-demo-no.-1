@@ -2,6 +2,7 @@ using RyanHipplesArchitecture.SO_Events;
 using RyanHipplesArchitecture.SO_Variables;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Json;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal.Internal;
@@ -118,7 +119,13 @@ public class TapSelectHandling : MonoBehaviour
             return;
         }
 
-        hit.collider.gameObject.GetComponent<isSelectable>().IsSelected = true;
+        isSelectable _hitSelectable = hit.collider.gameObject.GetComponent<isSelectable>();
+        if (!_hitSelectable)
+        {
+            Debug.LogWarning("TapSelect ray collided with something non-selectable!");
+            return;
+        }
+        _hitSelectable.IsSelected = true;
     }
 
     private bool IsCursorTooFar()

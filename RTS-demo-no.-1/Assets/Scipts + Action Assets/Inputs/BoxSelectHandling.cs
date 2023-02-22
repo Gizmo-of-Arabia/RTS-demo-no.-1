@@ -13,8 +13,9 @@ using UnityEngine.Rendering.Universal.Internal;
 /// Uses the "slow tap" action, which is performed on release.
 /// Sets SelectBoxCorner, SelectBoxCorner_Opposite while the button is held down.
 /// Those vars help the UI Painter make an appropriate box.
-/// TODO: Send start, stop event to UI Painter
-/// TODO: Make a big shape on release that actually selects.
+/// Informs Select Box painter on whether the Box Select procedure is ongoing.
+/// When Box Select is finalized, creates a Collider Mesh that selects selectables within the 
+/// box drawn by the player.
 /// </summary>
 public class BoxSelectHandling : MonoBehaviour
 {
@@ -29,10 +30,15 @@ public class BoxSelectHandling : MonoBehaviour
     /// </summary>
     [SerializeField] private GameEvent_bool onBoxSelectOngoing;
 
+    [SerializeField] private MeshCollider selectionMeshCollider;
+    private Mesh _selectionMesh;
+
 
     [SerializeField]
     private Vector3Reference 
         SelectBoxCorner, SelectBoxCorner_Opposite;
+
+    [SerializeField] private FloatVariable HugeNumber;
 
     private float _minMouseTravelPixelsForBoxSelect;
 
@@ -53,6 +59,7 @@ public class BoxSelectHandling : MonoBehaviour
         controls = new Controls();
         _minMouseTravelPixelsForBoxSelect = GetComponent<TapSelectHandling>().MaxMouseTravelPixelsForTapSelect;
         _hasCursorGoneFarEnough = false;
+
     }
 
     private void OnEnable()
@@ -69,12 +76,15 @@ public class BoxSelectHandling : MonoBehaviour
 
     private void Start()
     {
+        _selectionMesh = new Mesh();
+        //selectionMeshCollider.sharedMesh = _selectionMesh;
+
 
     }
 
     private void Update()
     {
-        //Debug.Log(Input.mousePosition); // TEMP
+
     }
 
     private void OnDisable()
@@ -117,7 +127,7 @@ public class BoxSelectHandling : MonoBehaviour
         _hasCursorGoneFarEnoughChecker = StartCoroutine(HasCursorGoneFarEnoughChecker());
 
         //Debug.Log("Box Select Started");
-        
+
 
     }
 
@@ -131,13 +141,21 @@ public class BoxSelectHandling : MonoBehaviour
     /// </summary>
     private void OnBoxSelectPerformed(InputAction.CallbackContext context)
     {
+        onDeselectEverything.Raise();
+
         onBoxSelectOngoing.Raise(false);
         _isBoxSelectOngoing = false;
 
-        if (!_hasCursorGoneFarEnough)
+        if (!_hasCursorGoneFarEnough || !IsCursorFarEnough())
         {
             return;
         }
+
+        //actual selecting:
+
+        _selectionMesh.vertices = SelectionMeshVertices();
+        _selectionMesh.triangles = SelectionMeshTriangles();
+        selectionMeshCollider.sharedMesh = _selectionMesh;
 
 
 
@@ -178,8 +196,71 @@ public class BoxSelectHandling : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the 5 Selection Mesh Vertices. First one is on the camera.
+    /// Other four are projected in the direction of ScreenPointToRay at a large distance.
+    /// The PointProjectedFromTheScreen's arg is a corner of the selection box for each of the 4 bottom vertices.
+    /// </summary>
+    /// <returns>Vector3 array of vertices for the Selection Mesh.</returns>
+    private Vector3[] SelectionMeshVertices ()
+    {
+        Vector3[] _selectionMeshVertices = new Vector3[5];
 
+        //top vertice of the _selectionMesh
 
+        _selectionMeshVertices[0] = Camera.main.transform.position;
+
+        //bottom vertices:
+
+        _selectionMeshVertices[1] = PointProjectedFromTheScreen(SelectBoxCorner);
+        _selectionMeshVertices[2] = PointProjectedFromTheScreen(new Vector3(SelectBoxCorner_Opposite.Value.x, SelectBoxCorner.Value.y, 0));
+        _selectionMeshVertices[3] = PointProjectedFromTheScreen(SelectBoxCorner_Opposite);
+        _selectionMeshVertices[4] = PointProjectedFromTheScreen(new Vector3(SelectBoxCorner.Value.x, SelectBoxCorner_Opposite.Value.y, 0));
+
+        // DEBUG/TEST CODE, spawns spheres at vertice points:
+        /*
+        foreach (var item in _selectionMeshVertices)
+        {
+            GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            obj.transform.position = item;
+        }
+        */
+
+        return _selectionMeshVertices;
+    }
+
+    /// <summary>
+    /// Projects a point from the camera, in the direction of the given screen point. Uses HugeNumber to ensure a large distance.
+    /// </summary>
+    /// <param name="ScreenPoint"> Screen point from which the returned Vec3 is projected.</param>
+    /// <returns> Returns a point at the end of a long straight line that starts in the camera, goes 
+    /// in the direction of the given screen point, ends very far away.</returns>
+    private Vector3 PointProjectedFromTheScreen(Vector3 ScreenPoint)
+    {
+        return Camera.main.ScreenToWorldPoint(new Vector3(ScreenPoint.x, ScreenPoint.y, HugeNumber.Value));
+    }
+
+    /// <summary>
+    /// Calculates triangles for the selection mesh using vertex indexes.
+    /// </summary>
+    /// <returns>Int Array containing triangles for the Selection Mesh.</returns>
+    private int[] SelectionMeshTriangles()
+    {
+        // 6 triangles
+        int[] _selectionMeshTriangles = new int[]
+        {
+            0, 1, 2,
+            0, 2, 3,
+            0, 3, 4,
+            0, 4, 1, // sides
+
+            3, 2, 1,
+            4, 3, 1  // bottom 
+        };
+
+        return _selectionMeshTriangles;
+        
+    }
 
     #endregion
 }
