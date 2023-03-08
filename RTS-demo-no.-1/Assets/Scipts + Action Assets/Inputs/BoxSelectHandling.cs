@@ -14,7 +14,7 @@ using UnityEngine.Rendering.Universal.Internal;
 /// Sets SelectBoxCorner, SelectBoxCorner_Opposite while the button is held down.
 /// Those vars help the UI Painter make an appropriate box.
 /// Informs Select Box painter on whether the Box Select procedure is ongoing.
-/// When Box Select is finalized, creates a Collider Mesh that selects selectables within the 
+/// Creates a Collider Mesh that selects selectables within the 
 /// box drawn by the player.
 /// </summary>
 public class BoxSelectHandling : MonoBehaviour
@@ -137,7 +137,7 @@ public class BoxSelectHandling : MonoBehaviour
     /// Raises onBoxSelectOngoing with the "false" arg (meaning it's over).
     /// Sets the flag for coroutines to false.
     /// If the cursor hasn't made it far enough, the actual SELECTION part is aborted.
-    /// TODO: HERE SPAWN THE BIG SHAPE AND SELECT STUFF
+    /// Finally, spawns a big box that selects things on collision.
     /// </summary>
     private void OnBoxSelectPerformed(InputAction.CallbackContext context)
     {

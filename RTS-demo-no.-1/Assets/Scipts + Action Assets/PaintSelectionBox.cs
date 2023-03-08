@@ -4,6 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Creates the Selection Box UI element, handles hiding/showing it when necessary. 
+/// </summary>
 public class PaintSelectionBox : MonoBehaviour
 {
 
