@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 366d10869e377834e8aa68763330903f, type: 3}
-  m_Name: OnBoxSelectOngoing
+  m_Script: {fileID: 11500000, guid: 74a842cd4d05ff24f825976d8d987a91, type: 3}
+  m_Name: SelectedSelectables
   m_EditorClassIdentifier: 
+  Items: []

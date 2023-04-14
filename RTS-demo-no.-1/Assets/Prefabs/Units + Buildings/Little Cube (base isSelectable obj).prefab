@@ -129,6 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSelectables: {fileID: 11400000, guid: 493eef4449da1c74d8fa6c490c3d21dd, type: 2}
+  SelectedSelectables: {fileID: 11400000, guid: 515bd69c434a3eb449daa0b4a4ec581d,
+    type: 2}
   onNewSelectableCreated: {fileID: 11400000, guid: a107b14a83e3d854f90d7c5eb4f91708,
     type: 2}
   onIsSelectedSet_EventBlueprint: {fileID: 11400000, guid: ad55dcb78b493d34c9563f4cede85a8e,
