@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5037be8d1213ee42bc53d0e59f0ee4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameSizeModifier: 8
+  frameSizeModifier: 12
   frameCornerSizeModifier: 0.25
   frameCorners:
   - {fileID: 8729389955636658450}

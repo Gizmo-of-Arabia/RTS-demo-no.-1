@@ -11,9 +11,12 @@ using UnityEngine.UI;
 /// </summary>
 public class isSelectable : MonoBehaviour
 {
+	// Runtime Sets:
     [SerializeField] private RuntimeSet_isSelectable allSelectables;
+    [SerializeField] private RuntimeSet_isSelectable SelectedSelectables;
+	//
 
-	[SerializeField] private GameEvent_int onNewSelectableCreated;
+    [SerializeField] private GameEvent_int onNewSelectableCreated;
 
     [SerializeField] private GameEvent onIsSelectedSet_EventBlueprint;
 
@@ -34,6 +37,10 @@ public class isSelectable : MonoBehaviour
             isSelected = value;
             OnIsSelectedSet.Raise();
             //Debug.Log("Raising onIsSelectedSet with arg: " + objectID);
+			if (value)
+			{
+				SelectedSelectables.Add(this);
+			}
         } 
 	}
 
@@ -76,8 +83,12 @@ public class isSelectable : MonoBehaviour
 
     #region Custom
 
-    public void DoDeselect() => IsSelected = false;
-    
+    public void DoDeselect()
+    {
+        IsSelected = false;
+		SelectedSelectables.Remove(this);
+    }
+
 
 
 
