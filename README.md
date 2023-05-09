@@ -2,7 +2,7 @@
 ## A demo project parroting common Real Time Strategy gameplay mechanics
 
 The project emphasizes clean and modular (decoupled) OOP code.  
-To this end, it utilizes Scriptable Object Architecture popularized by Ryan Hipple in his [Unite 2017 Talk](https://www.youtube.com/watch?v=raQ3iHhE_Kk).
+To that end, it utilizes Scriptable Object Architecture popularized by Ryan Hipple in his [Unite 2017 Talk](https://www.youtube.com/watch?v=raQ3iHhE_Kk).
 
 
 
