@@ -1,5 +1,5 @@
 # RTS Demo
-## A demo project parroting common Real Time Strategy gameplay mechanics
+## A demo project parroting common Real-time Strategy gameplay mechanics
 
 The project emphasizes clean and modular (decoupled) OOP code.  
 To that end, it utilizes Scriptable Object Architecture popularized by Ryan Hipple in his [Unite 2017 Talk](https://www.youtube.com/watch?v=raQ3iHhE_Kk).
