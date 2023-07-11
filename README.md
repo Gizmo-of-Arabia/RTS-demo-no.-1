@@ -12,15 +12,14 @@ To that end, it utilizes Scriptable Object Architecture popularized by Ryan Hipp
 
 Selection UI tracks its assigned unit and changes size based on distance from the camera.
 
-<img src="https://user-images.githubusercontent.com/26883837/227596121-0fbb9b80-974f-4999-92b8-5636f0e49a17.gif" width = 40% height = 40%>
+<img src="https://github.com/Gizmo-of-Arabia/RTS-demo-no.-1/assets/26883837/a615d4fa-9ce6-4b15-b98a-49aad7398413" width = 40% height = 40%>
 
 ### Tap Select
 Selecting a unit with a single click.
 
-<img src="https://user-images.githubusercontent.com/26883837/227569134-caebde97-3dc0-44f0-9440-f451cec1063f.gif" width = 225 height = 225>
+<img src="https://github.com/Gizmo-of-Arabia/RTS-demo-no.-1/assets/26883837/c99387b5-6528-48af-8b33-fee8efd40117" width = 40% height = 40%>
 
 ### Box Select
 Selecting a variable number of units by dragging a box.
 
-<img src="https://user-images.githubusercontent.com/26883837/227598929-ed88c162-1379-470e-a67d-c692d415d7b0.gif" width = 225 height = 225>
-
+<img src="https://github.com/Gizmo-of-Arabia/RTS-demo-no.-1/assets/26883837/810dd59f-3681-4e6a-bd6f-d4662b48553a" width = 40% height = 40%>
